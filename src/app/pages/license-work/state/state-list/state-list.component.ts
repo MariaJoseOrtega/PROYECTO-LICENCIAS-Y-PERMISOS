@@ -36,8 +36,15 @@ export class StateListComponent implements OnInit {
     private licenseWorkHttpService: LicenseWorkHttpService
   ) {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Estado', disabled: true},
+      {label: 'Home', disabled: true},
+      {label: 'Aplication',routerLink: ['/license-work/application']},
+      {label: 'Dependence', routerLink: ['/license-work/dependence']},
+      {label: 'Employee', routerLink: ['/license-work/employee']},
+      {label: 'Employer', routerLink: ['/license-work/employer']},
+      {label: 'Form', routerLink: ['/license-work/form']},
+      {label: 'Holiday', routerLink: ['/license-work/holiday']},
+      {label: 'Reason', routerLink: ['/license-work/reason']},
+      {label: 'State', disabled: true}
     ]);
     this.filter = new FormControl(null);
   }

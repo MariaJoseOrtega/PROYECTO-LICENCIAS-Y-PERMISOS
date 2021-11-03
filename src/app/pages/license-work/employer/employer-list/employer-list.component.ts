@@ -34,8 +34,15 @@ export class EmployerListComponent implements OnInit {
               ) 
   {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Empleador', disabled: true},
+      {label: 'Home', disabled: true},
+      {label: 'Dependence', routerLink: ['/license-work/dependence']},
+      {label: 'Employee', routerLink: ['/license-work/employee']},
+      {label: 'Employer', disabled: true},
+      {label: 'Aplication', routerLink: ['/license-work/application']},
+      {label: 'Form', routerLink: ['/license-work/form']},
+      {label: 'Holiday', routerLink: ['/license-work/holiday']},
+      {label: 'Reason', routerLink: ['/license-work/reason']},
+      {label: 'State', routerLink: ['/license-work/state']},
     ]);
 
     this.filter = new FormControl(null);

@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirect() {
-    this.router.navigate(['/license-work/dependence']);
+    this.router.navigate(['/license-work/application']);
   }
 
   redirectRegistration() {
