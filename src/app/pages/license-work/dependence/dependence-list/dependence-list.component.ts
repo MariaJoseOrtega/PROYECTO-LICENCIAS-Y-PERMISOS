@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dependence-list.component.scss']
 })
 export class DependenceListComponent implements OnInit {
-
   private subscriptions: Subscription[] = [];
   cols: ColModel[] = [];
   items: MenuItem[] = [];
@@ -33,10 +32,11 @@ export class DependenceListComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService
-  ) {
+  ) 
+  {
     this.breadcrumbService.setItems([
       {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Solicitud', disabled: true},
+      {label: 'Dependencia', disabled: true},
     ]);
 
     this.filter = new FormControl(null);

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {MenuItem} from 'primeng/api';
-import {BreadcrumbService} from '@services/core/breadcrumb.service';
-import {LicenseWorkHttpService, LicenseWorkService} from '@services/license-work';
-import {MessageService} from '@services/core';
-import {ReasonModel} from '@models/license-work';
-import {ColModel, PaginatorModel} from '@models/core';
 import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ColModel, PaginatorModel} from '@models/core';
+import {ApplicationModel, ReasonModel} from '@models/license-work';
+import {MessageService} from '@services/core';
+import {BreadcrumbService} from '@services/core/breadcrumb.service';
+import {LicenseWorkHttpService} from '@services/license-work';
+import {MenuItem} from 'primeng/api';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-reason-list',
@@ -20,14 +20,16 @@ export class ReasonListComponent implements OnInit {
   cols: ColModel[] = [];
   items: MenuItem[] = [];
   loading: boolean = false;
-  paginator: PaginatorModel = {current_page: 1, per_page: 5, total: 0};
   filter: FormControl;
+  paginator: PaginatorModel = {current_page: 1, per_page: 5, total: 0};
+  progressBarDelete: boolean = false;
+
   reasons: ReasonModel[] = [];
   selectedReason: ReasonModel = {};
   selectedReasons: ReasonModel[] = [];
-  progressBarDelete: boolean = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private breadcrumbService: BreadcrumbService,
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService
@@ -73,7 +75,7 @@ export class ReasonListComponent implements OnInit {
     }
   }
 
-  editReason(reason: ReasonModel) {
+  editReason(reason: ApplicationModel) {
     this.router.navigate(['/license-work/reason/', reason.id]);// preguntar reason
   }
 
@@ -112,8 +114,7 @@ export class ReasonListComponent implements OnInit {
         if (result.isConfirmed) {
           this.progressBarDelete = true;
           const ids = this.selectedReasons.map(element => element.id);
-          this.subscriptions.push(this.licenseWorkHttpService.deleteReasons(ids)
-          .subscribe(
+          this.subscriptions.push(this.licenseWorkHttpService.deleteReasons(ids).subscribe(
             response => {
               this.removeReasons(ids!);
               this.messageService.success(response);

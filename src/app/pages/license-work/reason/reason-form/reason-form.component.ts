@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {OnExitInterface} from '@shared/interfaces/on-exit.interface';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {MessageService} from '@services/core';
-import {LicenseWorkHttpService, LicenseWorkService} from '@services/license-work';
+import {LicenseWorkHttpService} from '@services/license-work';
 import {ReasonModel} from '@models/license-work';
 
 @Component({
@@ -14,7 +13,8 @@ import {ReasonModel} from '@models/license-work';
   styleUrls: ['./reason-form.component.scss']
 })
 
-export class ReasonFormComponent implements OnInit, OnDestroy, OnExitInterface {
+export class ReasonFormComponent implements OnInit{
+
   private subscriptions: Subscription[] = [];
   form: FormGroup;
   progressBar: boolean = false;
@@ -141,7 +141,7 @@ export class ReasonFormComponent implements OnInit, OnDestroy, OnExitInterface {
        }
 
        returnList() {
-          this.router.navigate(['/license-work', 2]);
+          this.router.navigate(['/license-work/reason']);
         }
 
         get idField() {
