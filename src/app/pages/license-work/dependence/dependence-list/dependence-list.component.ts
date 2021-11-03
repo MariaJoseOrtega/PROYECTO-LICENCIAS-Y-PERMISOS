@@ -91,8 +91,7 @@ export class DependenceListComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.progressBarDelete = true;
-          this.subscriptions.push(this.licenseWorkHttpService.deleteDependence(dependence.id!)
-            .subscribe(
+          this.subscriptions.push(this.licenseWorkHttpService.deleteDependence(dependence.id!).subscribe(
             response => {
               this.removeDependence(dependence);
               this.messageService.success(response);

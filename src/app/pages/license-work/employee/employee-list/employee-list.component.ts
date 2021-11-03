@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {MenuItem} from 'primeng/api';
+import {ColModel, PaginatorModel} from '@models/core';
+import { ApplicationModel, EmployeeModel } from '@models/license-work';
+import {MessageService} from '@services/core';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {LicenseWorkHttpService} from '@services/license-work';
-import {MessageService} from '@services/core';
-import {EmployeeModel} from '@models/license-work';
-import {ColModel, PaginatorModel} from '@models/core';
-import {FormControl} from '@angular/forms';
-
+import {MenuItem} from 'primeng/api';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,25 +15,25 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./employee-list.component.scss']
 })
 export class EmployeeListComponent implements OnInit {
-
   private subscriptions: Subscription[] = [];
   cols: ColModel[] = [];
   items: MenuItem[] = [];
   loading: boolean = false;
   paginator: PaginatorModel = {current_page: 1, per_page: 5, total: 0};
   filter: FormControl;
+  progressBarDelete: boolean = false;
+
   employees: EmployeeModel[] = [];
   selectedEmployee: EmployeeModel = {};
   selectedEmployees: EmployeeModel[] = [];
-  progressBarDelete: boolean = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private breadcrumbService: BreadcrumbService,
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService,
     )
-
-     {
+    {
       this.breadcrumbService.setItems([
        {label: 'Dashboard', routerLink: ['/dashboard']},
        {label: 'Empleados', disabled: true},
@@ -75,7 +74,7 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  editEmployee(employee: EmployeeModel) {
+  editEmployee(employee: ApplicationModel) {
     this.router.navigate(['/license-work/employee/',employee.id]);
   }
 
@@ -149,10 +148,9 @@ export class EmployeeListComponent implements OnInit {
 
   setCols() {
     this.cols = [
-      {field: 'user', header: 'Usuario'},
+      {field: 'id', header: 'Identificacion'},
 
     ];
-
   }
 
 

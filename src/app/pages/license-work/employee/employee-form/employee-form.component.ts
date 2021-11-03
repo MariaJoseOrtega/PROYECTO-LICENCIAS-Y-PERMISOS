@@ -1,43 +1,39 @@
-import { Component, OnInit,OnDestroy, } from '@angular/core';
-import {OnExitInterface} from '@shared/interfaces/on-exit.interface';
+import { Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EmployeeModel} from '@models/license-work';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {MessageService} from '@services/core';
 import {LicenseWorkHttpService} from '@services/license-work';
-import {EmployeeModel} from '@models/license-work';
 
 @Component({
   selector: 'app-employee-form',
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss']
 })
-export class EmployeeFormComponent implements OnInit,OnDestroy,OnExitInterface {
+export class EmployeeFormComponent implements OnInit{
+
   private subscriptions: Subscription[] = [];
   form: FormGroup;
   progressBar: boolean = false;
   loadingSkeleton: boolean = false;
   title: string = 'Crear Empleado';
   buttonTitle: string = 'Crear Empleado';
-  user: number[] = [];
 
-
-  constructor( private formBuilder: FormBuilder,
+  constructor( 
+    private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService,
-  )
-    
-    {
+  ){
      this.breadcrumbService.setItems([
         {label: 'Dashboard', routerLink: ['/dashboard']},
         {label: 'Formulario de empleados', disabled: true},
       ]);
-      this.form = this.newForm();
-      
+      this.form = this.newForm(); 
      }
 
      ngOnInit(): void {
@@ -64,8 +60,7 @@ export class EmployeeFormComponent implements OnInit,OnDestroy,OnExitInterface {
 
     newForm(): FormGroup {
       return this.formBuilder.group({
-       id: [null],
-       user: [null, [Validators.required]],
+       id: [null],    
       });
  }
 
@@ -138,7 +133,7 @@ isRequired(field: AbstractControl): boolean {
 }
 
 returnList() {
-  this.router.navigate(['/license-work', 2]);
+  this.router.navigate(['/license-work/employee']);
 }
 
 
