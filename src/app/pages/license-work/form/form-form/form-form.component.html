@@ -1,0 +1,156 @@
+<div class="container-fluid">
+  <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">//cambiar
+    <div class="p-toolbar-group-left">
+      <h3 class="ml-2">{{title}}</h3>
+    </div>
+    <div class="p-toolbar-group-right">
+      <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+      <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+      <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+    </div>
+  </p-toolbar>
+</div>
+<div class="container">
+  <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+  <p-card>
+    <div class="p-fluid" *ngIf="!loadingSkeleton">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="formgrid grid">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <label for="employer" appLabel label="Empleador:"
+                     [required]="isRequired(employerField)"
+                     [valid]="employerField.valid"
+                     [touched]="employerField.touched"
+                     [dirty]="employerField.dirty">
+              </label>
+              <p-dropdown id="employer"
+                          dataKey="id"
+                          [options]="employers"
+                          formControlName="employer"
+                          [filter]="true"
+                          filterBy="name"
+                          placeholder="Seleccione">
+                <ng-template pTemplate="selectedItem">
+                  <div class="country-item country-item-value" *ngIf="employerField.value">
+                    <div>{{employerField.value?.name}}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                  <div class="country-item">
+                    <div>{{item.name}} </div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            <small appErrorMessage
+                   [errors]="employerField.errors"
+                   [touched]="employerField.touched"
+                   [dirty]="employerField.dirty">
+            </small>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="code" appLabel label="Código del formulario"
+                   [required]="isRequired(codeField)"
+                   [valid]="codeField.valid"
+                   [touched]="codeField.touched"
+                   [dirty]="codeField.dirty">
+            </label>
+              <input pinputText id="code" formControlName="code">
+            <small appErrorMessage
+                   [errors]="codeField.errors"
+                   [touched]="codeField.touched"
+                   [dirty]="codeField.dirty">
+            </small>
+          </div>
+        <div class="formgrid grid">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="description" appLabel label="Descripción de formularios de L y P:"
+                   [required]="isRequired(descriptionField)"
+                   [valid]="descriptionField.valid"
+                   [touched]="descriptionField.touched"
+                   [dirty]="descriptionField.dirty">
+            </label>
+            <input pInputText id="description" formControlName="description">
+            <small appErrorMessage
+                   [errors]="descriptionField.errors"
+                   [touched]="descriptionField.touched"
+                   [dirty]="descriptionField.dirty">
+            </small>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="regime" appLabel label="Losep. Cod. trabajo:"
+                   [required]="isRequired(regimeField)"
+                   [valid]="regimeField.valid"
+                   [touched]="regimeField.touched"
+                   [dirty]="regimeField.dirty">
+            </label>
+            <input pInputText id="regime" formControlName="regime">
+            <small appErrorMessage
+                   [errors]="regimeField.errors"
+                   [touched]="regimeField.touched"
+                   [dirty]="regimeField.dirty">
+            </small>
+          </div>
+
+        </div>
+        <div class="formgrid grid">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="daysConst" appLabel label="1,363636:"
+                   [required]="isRequired(daysConstField)"
+                   [valid]="daysConstField.valid"
+                   [touched]="daysConstField.touched"
+                   [dirty]="daysConstField.dirty">
+            </label>
+            <input pInputText id="daysConst" formControlName="daysConst">
+            <small appErrorMessage
+                   [errors]="daysConstField.errors"
+                   [touched]="daysConstField.touched"
+                   [dirty]="daysConstField.dirty">
+            </small>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="approvedLevel" appLabel label="Nivel de aprobación que debe tener el formulario:"
+                   [required]="isRequired(approvedLevelField)"
+                   [valid]="approvedLevelField.valid"
+                   [touched]="approvedLevelField.touched"
+                   [dirty]="approvedLevelField.dirty">
+            </label>
+            <input pInputText id="approvedLevel" formControlName="approvedLevel">
+            <small appErrorMessage
+                   [errors]="approvedLevelField.errors"
+                   [touched]="approvedLevelField.touched"
+                   [dirty]="approvedLevelField.dirty">
+            </small>
+          </div>
+        </div>
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label for="state" appLabel label="Activo-Inactivo:"
+                 [required]="isRequired(stateField)"
+                 [valid]="stateField.valid"
+                 [touched]="stateField.touched"
+                 [dirty]="stateField.dirty">
+          </label>
+          <p>
+            <p-inputSwitch id="state" formControlName="state"></p-inputSwitch>
+          </p>
+          <small appErrorMessage
+                 [errors]="stateField.errors"
+                 [touched]="stateField.touched"
+                 [dirty]="stateField.dirty">
+          </small>
+        </div>
+        <p-divider></p-divider>
+        <div class="formgrid grid">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <button pButton pRipple [label]="buttonTitle" class="p-button-rounded" icon="pi pi-save"></button>
+          </div>
+          <div *ngIf="progressBar" class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <app-progress-bar [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

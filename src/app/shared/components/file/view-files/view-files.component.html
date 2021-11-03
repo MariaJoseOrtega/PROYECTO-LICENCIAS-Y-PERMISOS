@@ -1,0 +1,126 @@
+<app-upload-files [acceptAttributes]="acceptAttributes"
+                  [loadingUpload]="loadingUpload"
+                  (files)="upload($event)"></app-upload-files>
+<p-divider></p-divider>
+<p-card *ngIf="filesIn?.length">
+  <p-paginator [rows]="paginatorIn.per_page" [totalRecords]="paginatorIn.total"
+               (onPageChange)="paginate($event)"></p-paginator>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button *ngIf="selectedFiles?.length" pButton pRipple type="button" label="Eliminar archivos" icon="pi pi-trash"
+              class="p-button-danger p-mr-2 p-mb-2"
+              (click)="delete()"
+              [disabled]="!selectedFiles || !selectedFiles.length"></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table
+    dataKey="id"
+    [value]="filesIn"
+    [columns]="cols"
+    [paginator]="false"
+    [(selection)]="selectedFiles"
+    editMode="row"
+    [responsive]="true"
+    [rowHover]="true"
+    styleClass="p-datatable-customers"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-fluid">
+        <div class="p-field">
+          <h5>Mis Archivos: {{title}}</h5>
+        </div>
+        <div class="p-field">
+          <i class="p-input-icon-left" style="width: 100%">
+            <i class="pi pi-search" (click)="searchFiles($event)"></i>
+            <input pInputText type="text" class="p-text-uppercase"
+                   (keyup)="searchFiles($event)"
+                   placeholder="Buscar..."/>
+          </i>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align:center">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th style="text-align:center">
+          <button pButton pRipple
+                  type="button" id="btnOptions"
+                  icon="pi pi-cog" class="p-button-secondary"
+                  disabled></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-columns="columns" let-rowData let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="rowData">
+        <td>
+          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text"
+                     [(ngModel)]="rowData.name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              <button pButton pRipple type="button" id="btnDownload1" class="p-button-link"
+                      (click)="download(rowData)"
+                      [label]="rowData.name + '.' +rowData.extension"></button>
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+                                <textarea pInputTextarea
+                                          [(ngModel)]="rowData.description"></textarea>
+            </ng-template>
+            <ng-template pTemplate="output">
+              <textarea pInputTextarea disabled>{{rowData.description}}</textarea>
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <img [src]="rowData.extension | extensions" [pTooltip]="rowData.extension" alt="tipo"
+               (click)="download(rowData)">
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow pTooltip="Editar"
+                  icon="pi pi-pencil" (click)="onRowEditInit(rowData)"
+                  class="p-button-rounded p-button-warning"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow pTooltip="Guardar"
+                  icon="pi pi-check" (click)="onRowEditSave(rowData,ri)"
+                  class="p-button-rounded p-button-text p-button-success p-ml-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow pTooltip="Cancelar"
+                  icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)"
+                  class="p-button-rounded p-button-text p-button-danger p-ml-2"></button>
+          <button pButton pRipple type="button" pTooltip="Descargar" icon="pi pi-download"
+                  class="p-button-rounded p-button-info ml-2"
+                  (click)="download(rowData)"></button>
+          <button pButton pRipple type="button" pTooltip="Eliminar" icon="pi pi-trash"
+                  class="p-button-rounded p-button-danger ml-2"
+                  (click)="delete(rowData)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        En total hay {{paginatorIn?.total ? paginatorIn.total : 0 }} registros.
+      </div>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns?.length">
+          No se encontraron registros
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+

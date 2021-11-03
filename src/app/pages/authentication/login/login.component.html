@@ -1,0 +1,73 @@
+<div class="container loginForm">
+  <p-card>
+    <div class="p-fluid">
+      <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        <div class="field text-center">
+          <h2>Bolsa de Empleo</h2>
+          <img src="../../../../assets/images/components/login/logo.png" alt="">
+        </div>
+        <div class="field">
+          <label for="username" appLabel label="Número de cédula o pasaporte:"
+                 [required]="isRequired(usernameField)"
+                 [valid]="usernameField.valid"
+                 [touched]="usernameField.touched"
+                 [dirty]="usernameField.dirty">
+          </label>
+          <input pInputText id="username" formControlName="username">
+          <small appErrorMessage
+                 [errors]="usernameField.errors"
+                 [touched]="usernameField.touched"
+                 [dirty]="usernameField.dirty">
+          </small>
+        </div>
+        <div class="field">
+          <label for="password" appLabel label="Contraseña:"
+                 [required]="isRequired(passwordField)"
+                 [valid]="passwordField.valid"
+                 [touched]="passwordField.touched"
+                 [dirty]="passwordField.dirty">
+          </label>
+          <p-password id="password" formControlName="password" [feedback]="false" [toggleMask]="true"></p-password>
+
+          <small appErrorMessage
+                 [errors]="passwordField.errors"
+                 [touched]="passwordField.touched"
+                 [dirty]="passwordField.dirty">
+          </small>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="field">
+          <button pButton pRipple label="Continuar" class="p-button-rounded" icon="pi pi-sign-in"></button>
+        </div>
+
+        <div *ngIf="progressBar" class="field">
+          <app-progress-bar [message]="messageService.progressBarLogin"></app-progress-bar>
+        </div>
+
+        <div class="formgrid grid">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <button pButton pRipple type="button" label="Recuperar contraseña"
+                    class="p-button-outlined p-button-secondary"
+                    icon="pi pi-key" (click)="requestPasswordReset()"></button>
+          </div>
+          <!--          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">-->
+          <!--            <button pButton pRipple type="button" label="Desbloquear usuario" class="p-button-outlined p-button-info"-->
+          <!--                    icon="pi pi-unlock" (click)="requestUserUnlock()"></button>-->
+          <!--          </div>-->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <button pButton pRipple type="button" label="Crear cuenta" class="p-button-outlined p-button-info"
+                    icon="pi pi-user" (click)="redirectRegistration()"></button>
+          </div>
+        </div>
+
+        <div *ngIf="progressBarRequestPasswordReset" class="field">
+          <app-progress-bar [message]="messageService.progressBarRequestPasswordReset"></app-progress-bar>
+        </div>
+
+      </form>
+    </div>
+  </p-card>
+</div>
+

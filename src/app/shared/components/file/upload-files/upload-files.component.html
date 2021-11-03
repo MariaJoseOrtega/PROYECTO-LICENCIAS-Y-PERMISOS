@@ -1,0 +1,29 @@
+<app-progress-bar *ngIf="loadingUpload" [message]="messageService.progressBarUpload"></app-progress-bar>
+<p-fileUpload
+  *ngIf="!loadingUpload"
+  #uploadFiles
+  chooseLabel="Browse"
+  chooseIcon="pi pi-search"
+  uploadLabel="Subir archivos"
+  cancelLabel="Limpiar"
+  name="files[]"
+  [auto]="true"
+  [accept]="acceptAttributes"
+  [multiple]="multiple"
+  [maxFileSize]="maxFileSize"
+  [fileLimit]="fileLimit"
+  [customUpload]="true"
+  (uploadHandler)="upload($event,uploadFiles!)">
+  <ng-template pTemplate="content" let-files>
+    <div class="text-center">
+      <img src="assets/images/shared/files/upload.png" alt="upload">
+      <br>
+<!--      <button pButton pRipple type="button" label="Browse" [icon]="'pi pi-search'"-->
+<!--              (click)="uploadFiles.choose()"></button>-->
+      <h6>
+        o arrastre aquí sus archivos
+      </h6>
+      <p-message severity="info" text="Formatos permitidos: {{acceptAttributes}}"></p-message>
+    </div>
+  </ng-template>
+</p-fileUpload>

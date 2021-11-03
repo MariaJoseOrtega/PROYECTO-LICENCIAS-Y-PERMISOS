@@ -1,0 +1,123 @@
+
+<div class="container-fluid">
+    <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
+      <div class="p-toolbar-group-left">
+        <h3 class="ml-2">{{title}}</h3>
+      </div>
+      <div class="p-toolbar-group-right">
+        <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+        <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+           style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+        <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+           style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+      </div>
+    </p-toolbar>
+  </div>
+  <div class="container">
+    <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+    <p-card>
+      <div class="p-fluid" *ngIf="!loadingSkeleton">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="formgrid grid">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <label for="logo" appLabel label="Logo de Senescyt"
+                     [required]="isRequired(logoField)"
+                     [valid]="logoField.valid"
+                     [touched]="logoField.touched"
+                     [dirty]="logoField.dirty">
+              </label>
+                <input pInputText id="logo" formControlName="logo">
+              <small appErrorMessage
+                     [errors]="logoField.errors"
+                     [touched]="logoField.touched"
+                     [dirty]="logoField.dirty">
+              </small>
+            </div>
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <label for="department" appLabel label="Tipo de departamento:"
+                     [required]="isRequired(departmentField)"
+                     [valid]="departmentField.valid"
+                     [touched]="departmentField.touched"
+                     [dirty]="departmentField.dirty">
+              </label>
+                <input pInputText id="department" formControlName="department">
+              <small appErrorMessage
+                     [errors]="departmentField.errors"
+                     [touched]="departmentField.touched"
+                     [dirty]="departmentField.dirty">
+              </small>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <label for="coordination" appLabel label="Sub. Fom. Técnica y Tecnológica:"
+                     [required]="isRequired(coordinationField)"
+                     [valid]="coordinationField.valid"
+                     [touched]="coordinationField.touched"
+                     [dirty]="coordinationField.dirty">
+              </label>
+              <input pInputText id="coordination" formControlName="coordination">
+              <small appErrorMessage
+                     [errors]="coordinationField.errors"
+                     [touched]="coordinationField.touched"
+                     [dirty]="coordinationField.dirty">
+              </small>
+            </div>
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label for="unit" appLabel label="Nombre del instituto:"
+                       [required]="isRequired(unitField)"
+                       [valid]="unitField.valid"
+                       [touched]="unitField.touched"
+                       [dirty]="unitField.dirty">
+                </label>
+                <input pInputText id="unit" formControlName="unit">
+                <small appErrorMessage
+                       [errors]="unitField.errors"
+                       [touched]="unitField.touched"
+                       [dirty]="unitField.dirty">
+                </small>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label for="approvalName" appLabel label="Nombre de quien aprueba:"
+                       [required]="isRequired(approvalNameField)"
+                       [valid]="approvalNameField.valid"
+                       [touched]="approvalNameField.touched"
+                       [dirty]="approvalNameField.dirty">
+                </label>
+                <input pInputText id="approvalName" formControlName="approvalName">
+                <small appErrorMessage
+                       [errors]="approvalNameField.errors"
+                       [touched]="approvalNameField.touched"
+                       [dirty]="approvalNameField.dirty">
+                </small>
+            </div>
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label for="registerName" appLabel label="Senescyt Talento Humano:"
+                       [required]="isRequired(registerNameField)"
+                       [valid]="registerNameField.valid"
+                       [touched]="registerNameField.touched"
+                       [dirty]="registerNameField.dirty">
+                </label>
+                <input pInputText id="registerName" formControlName="registerName">
+                <small appErrorMessage
+                       [errors]="registerNameField.errors"
+                       [touched]="registerNameField.touched"
+                       [dirty]="registerNameField.dirty">
+                </small>
+            </div>
+          </div>
+          <p-divider></p-divider>
+          <div class="formgrid grid">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <button pButton pRipple [label]="buttonTitle" class="p-button-rounded" icon="pi pi-save"></button>
+            </div>
+            <div *ngIf="progressBar" class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+              <app-progress-bar [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+            </div>
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>

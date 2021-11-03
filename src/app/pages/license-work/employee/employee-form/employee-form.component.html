@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
+    <div class="p-toolbar-group-left">
+      <h3 class="ml-2">{{title}}</h3>
+    </div>
+    <div class="p-toolbar-group-right">
+      <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+      <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+      <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+    </div>
+  </p-toolbar>
+</div>
+<div class="container">
+  <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+  <p-card>
+    <div class="p-fluid" *ngIf="!loadingSkeleton">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre de la dependencia-->
+        <div class="formgrid grid">
+          <label for="id" appLabel label="Id de los usuarios"
+                 [required]="isRequired(idField)"
+                 [valid]="idField.valid"
+                 [touched]="idField.touched"
+                 [dirty]="idField.dirty"></label>
+          <input pInputText id="id" formControlName="id" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="idField.errors"
+                 [touched]="idField.touched"
+                 [dirty]="idField.dirty">
+          </small>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>
+

@@ -1,0 +1,122 @@
+<<div class="container-fluid">
+  <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
+    <div class="p-toolbar-group-left">
+      <h3 class="ml-2">{{title}}</h3>
+    </div>
+    <div class="p-toolbar-group-right">
+      <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+      <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+      <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+    </div>
+  </p-toolbar>
+</div>
+<div class="container">
+  <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+  <p-card>
+    <div class="p-fluid" *ngIf="!loadingSkeleton">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- ID-->
+        <div class="formgrid grid">
+          <label for="id" appLabel label="ID"
+                 [required]="isRequired(idField)"
+                 [valid]="idField.valid"
+                 [touched]="idField.touched"
+                 [dirty]="idField.dirty"></label>
+          <input pInputText id="id" formControlName="id" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="idField.errors"
+                 [touched]="idField.touched"
+                 [dirty]="idField.dirty">
+          </small>
+        </div>
+        <!-- Nombre -->
+        <div class="formgrid grid">
+          <label for="name" appLabel label="Nombre"
+                 [required]="isRequired(nameField)"
+                 [valid]="nameField.valid"
+                 [touched]="nameField.touched"
+                 [dirty]="nameField.dirty"></label>
+          <input pInputText id="name" formControlName="name" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="nameField.errors"
+                 [touched]="nameField.touched"
+                 [dirty]="nameField.dirty">
+          </small>
+        </div>
+         <!-- Descripcion Uno-->
+         <div class="formgrid grid">
+          <label for="descriptionOne" appLabel label="descriptionOne"
+                 [required]="isRequired(descriptionOneField)"
+                 [valid]="descriptionOneField.valid"
+                 [touched]="descriptionOneField.touched"
+                 [dirty]="descriptionOneField.dirty"></label>
+          <input pInputText id="descriptionOne" formControlName="descriptionOne" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="descriptionOneField.errors"
+                 [touched]="descriptionOneField.touched"
+                 [dirty]="descriptionOneField.dirty">
+          </small>
+        </div>
+        <!-- Descripcion Dos -->
+        <div class="formgrid grid">
+          <label for="descriptionTwo" appLabel label="descriptionTwo"
+                 [required]="isRequired(descriptionTwoField)"
+                 [valid]="descriptionTwoField.valid"
+                 [touched]="descriptionTwoField.touched"
+                 [dirty]="descriptionTwoField.dirty"></label>
+          <input pInputText id="descriptionTwo" formControlName="descriptionTwo" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="descriptionTwoField.errors"
+                 [touched]="descriptionTwoField.touched"
+                 [dirty]="descriptionTwoField.dirty">
+          </small>
+        </div>
+        <!-- Dias Descontables-->
+        <div class="formgrid grid">
+          <label for="discountableHolidays" appLabel label="discountableHolidays"
+                 [required]="isRequired(discountableHolidaysField)"
+                 [valid]="discountableHolidaysField.valid"
+                 [touched]="discountableHolidaysField.touched"
+                 [dirty]="discountableHolidaysField.dirty"></label>
+          <input pInputText id="discountableHolidays" formControlName="discountableHolidays" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="discountableHolidaysField.errors"
+                 [touched]="discountableHolidaysField.touched"
+                 [dirty]="discountableHolidaysField.dirty">
+          </small>
+        </div>
+        <!-- Dias minimos-->
+        <div class="formgrid grid">
+          <label for="daysMin" appLabel label="daysMin"
+                 [required]="isRequired(daysMinField)"
+                 [valid]="daysMinField.valid"
+                 [touched]="daysMinField.touched"
+                 [dirty]="daysMinField.dirty"></label>
+          <input pInputText id="daysMin" formControlName="daysMin" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="daysMinField.errors"
+                 [touched]="daysMinField.touched"
+                 [dirty]="daysMinField.dirty">
+          </small>
+        </div>
+        <!-- Dias maximos-->
+        <div class="formgrid grid">
+          <label for="daysMax" appLabel label="daysMax"
+                 [required]="isRequired(daysMaxField)"
+                 [valid]="daysMaxField.valid"
+                 [touched]="daysMaxField.touched"
+                 [dirty]="daysMaxField.dirty"></label>
+          <input pInputText id="daysMax" formControlName="daysMax" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="daysMaxField.errors"
+                 [touched]="daysMaxField.touched"
+                 [dirty]="daysMaxField.dirty">
+          </small>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

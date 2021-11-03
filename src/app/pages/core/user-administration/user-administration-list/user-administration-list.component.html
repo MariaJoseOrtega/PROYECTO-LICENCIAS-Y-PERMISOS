@@ -1,0 +1,58 @@
+<p-table *appRolesPermissions="['role:admin','permission:view-users']"
+         dataKey="id"
+         [value]="users"
+         [columns]="cols"
+         styleClass="p-datatable-striped"
+         [lazy]="true"
+         [loading]="loading"
+         [(selection)]="selectedUsers"
+         [responsive]="true">
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <button pButton pRipple type="button" label="Crear"
+              class="p-button-success p-button-rounded" icon="pi pi-user-plus"
+              (click)="showForm()"></button>
+      <button pButton pRipple type="button" label="Refrescar" class="p-button-rounded ml-2" icon="pi pi-refresh"
+              (click)="loadUsers.emit('loadUsers')"></button>
+      <button *ngIf="selectedUsers?.length" pButton pRipple type="button" label="Eliminar seleccionados"
+              class="p-button-danger p-button-rounded ml-2" icon="pi pi-trash"
+              (click)="deleteUsers()"></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+      <th style="text-align: center">
+        <button pButton pRipple type="button" class="p-button-rounded p-button-secondary" icon="pi pi-cog"></button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+      <td>
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
+      <td style="text-align: center">
+        <p-splitButton label="Modificar" styleClass="p-button-secondary" icon="pi pi-user-edit"
+                       (onClick)="showForm(rowData)"
+                       (onDropdownClick)="selectUser(rowData)" [model]="items"></p-splitButton>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Usuario" [(visible)]="dialogForm" [maximizable]="true" [modal]="true">
+  <app-user-administration-form *ngIf="dialogForm" [user]="selectedUser"
+                                (userNewOrUpdate)="saveUser($event)"
+  ></app-user-administration-form>
+</p-dialog>
+

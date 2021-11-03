@@ -1,0 +1,277 @@
+<div class="container-fluid">
+  <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
+    <div class="p-toolbar-group-left">
+      <h3 class="ml-2">{{title}}</h3>
+    </div>
+    <div class="p-toolbar-group-right">
+      <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+      <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+      <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+    </div>
+  </p-toolbar>
+</div>
+<div class="container">
+  <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+  <p-card>
+    <div class="p-fluid" *ngIf="!loadingSkeleton">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="formgrid grid">
+          <!-- Formulario column 1 -->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="form" appLabel label="Formulario:"
+                   [required]="isRequired(formField)"
+                   [valid]="formField.valid"
+                   [touched]="formField.touched"
+                   [dirty]="formField.dirty">
+            </label>
+            <p-dropdown id="form"
+                        dataKey="id"
+                        [options]="forms"
+                        formControlName="form"
+                        [filter]="true"
+                        filterBy="name"
+                        placeholder="Seleccione">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value" *ngIf="formField.value">
+                  <div>{{formField.value?.name}}</div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>{{item.name}} </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            <small appErrorMessage
+                   [errors]="formField.errors"
+                   [touched]="formField.touched"
+                   [dirty]="formField.dirty">
+            </small>
+          </div>
+          <!-- Tipo column 1 -->
+          <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+            <label for="type" appLabel label="¿Es descontable a vacaciones?:"
+                   [required]="isRequired(typeField)"
+                   [valid]="typeField.valid"
+                   [touched]="typeField.touched"
+                   [dirty]="typeField.dirty">
+            </label>
+            <p>
+              <p-inputSwitch id="type" formControlName="type"></p-inputSwitch>
+            </p>
+            <small appErrorMessage
+                   [errors]="typeField.errors"
+                   [touched]="typeField.touched"
+                   [dirty]="typeField.dirty">
+            </small>
+          </div>
+        </div>
+          <!-- Nombre del empleado column 2 -->
+        <div class="field">
+          <label for="employee" appLabel label="Nombre del Empleado:"
+                 [required]="isRequired(employeeField)"
+                 [valid]="employeeField.valid"
+                 [touched]="employeeField.touched"
+                 [dirty]="employeeField.dirty">
+          </label>
+          <p-dropdown id="employee"
+                      dataKey="id"
+                      [options]="employees"
+                      formControlName="employee"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione">
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="employeeField.value">
+                <div>{{employeeField.value?.name}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="country-item">
+                <div>{{item.name}} </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <small appErrorMessage
+                 [errors]="employeeField.errors"
+                 [touched]="employeeField.touched"
+                 [dirty]="employeeField.dirty">
+          </small>
+        </div>
+          <!-- Razon de la solicitud column 3 -->
+        <div class="field">
+          <label for="reason" appLabel label="Razón de la Solicitud:"
+                 [required]="isRequired(reasonField)"
+                 [valid]="reasonField.valid"
+                 [touched]="reasonField.touched"
+                 [dirty]="reasonField.dirty">
+          </label>
+          <p-dropdown id="reason"
+                      dataKey="id"
+                      [options]="reasons"
+                      formControlName="reason"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione">
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="reasonField.value">
+                <div>{{reasonField.value?.name}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="country-item">
+                <div>{{item.name}} </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <small appErrorMessage
+                 [errors]="reasonField.errors"
+                 [touched]="reasonField.touched"
+                 [dirty]="reasonField.dirty">
+          </small>
+        </div>
+
+        <div class="formgrid grid">
+          <!-- Fecha de Inicio column 4 -->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="dateStartedAt" appLabel label="Fecha de inicio:"
+                   [required]="isRequired(dateStartedAtField)"
+                   [valid]="dateStartedAtField.valid"
+                   [touched]="dateStartedAtField.touched"
+                   [dirty]="dateStartedAtField.dirty">
+            </label>
+            <p-calendar id="dateStartedAt" formControlName="dateStartedAt" dateFormat="yy-mm-dd"
+                        [showIcon]="true"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        [readonlyInput]="true"></p-calendar>
+            <small appErrorMessage
+                   [errors]="dateStartedAtField.errors"
+                   [touched]="dateStartedAtField.touched"
+                   [dirty]="dateStartedAtField.dirty">
+            </small>
+          </div>
+          <!-- Fecha de Fin column 4 -->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="dateEndedAt" appLabel label="Fecha de fin:"
+                   [required]="isRequired(dateEndedAtField)"
+                   [valid]="dateEndedAtField.valid"
+                   [touched]="dateEndedAtField.touched"
+                   [dirty]="dateEndedAtField.dirty">
+            </label>
+            <p-calendar id="dateEndedAt" formControlName="dateEndedAt" dateFormat="yy-mm-dd"
+                        [showIcon]="true"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        [readonlyInput]="true"></p-calendar>
+            <small appErrorMessage
+                   [errors]="dateEndedAtField.errors"
+                   [touched]="dateEndedAtField.touched"
+                   [dirty]="dateEndedAtField.dirty">
+            </small>
+          </div>
+        </div>
+          <!-- Localización column 5 -->
+        <div class="field">
+          <label for="location" appLabel label="Localización:"
+                 [required]="isRequired(locationField)"
+                 [valid]="locationField.valid"
+                 [touched]="locationField.touched"
+                 [dirty]="locationField.dirty">
+          </label>
+          <p-dropdown id="location"
+                      dataKey="id"
+                      [options]="locations"
+                      formControlName="location"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione">
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="locationField.value">
+                <div>{{locationField.value?.name}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <div class="country-item">
+                <div>{{item.name}} </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <small appErrorMessage
+                 [errors]="locationField.errors"
+                 [touched]="locationField.touched"
+                 [dirty]="locationField.dirty">
+          </small>
+        </div>
+
+        <div class="formgrid grid">
+          <!-- Hora de Inicio column 6 -->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="timeStartedAt" appLabel label="Hora de Inicio:"
+                   [required]="isRequired(timeStartedAtField)"
+                   [valid]="timeStartedAtField.valid"
+                   [touched]="timeStartedAtField.touched"
+                   [dirty]="timeStartedAtField.dirty">
+            </label>
+            <p-calendar id="timeStartedAt" formControlName="timeStartedAt" [timeOnly]="true" inputId="timeonly"></p-calendar>
+          </div>
+          <!-- Hora de Fin column 6 -->
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <label for="timeEndedAt" appLabel label="Hora de Inicio:"
+                   [required]="isRequired(timeEndedAtField)"
+                   [valid]="timeEndedAtField.valid"
+                   [touched]="timeEndedAtField.touched"
+                   [dirty]="timeEndedAtField.dirty">
+            </label>
+            <p-calendar id="timeEndedAt" formControlName="timeEndedAt" [timeOnly]="true" inputId="timeonly"></p-calendar>
+          </div>
+        </div>
+          <!-- Observaciones de Fin column 7 -->
+        <div class="formgrid grid">
+          <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+            <label appLabel label="Observaciones:"
+                   [required]="isRequired(observationsField)"
+                   [valid]="observationsField.valid"
+                   [touched]="observationsField.touched"
+                   [dirty]="observationsField.dirty">
+            </label>
+          </div>
+          <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+            <button pButton pRipple type="button" label="Añadir" class="p-button-secondary p-button-rounded"
+                    icon="pi pi-plus"
+                    (click)="addObservations()"></button>
+          </div>
+        </div>
+        <div formArrayName="observations">
+          <div *ngFor="let observations of observationsField.controls; let i = index;">
+            <div class="formgrid grid">
+              <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+                <label [for]="'observations'+i" appLabel [label]="'Observación ' + (i + 1) + ':'"
+                       [required]="isRequired(observationsField.controls[i])"
+                       [valid]="observationsField.controls[i].valid"
+                       [touched]="observationsField.controls[i].touched"
+                       [dirty]="observationsField.controls[i].dirty"></label>
+              </div>
+              <div class="field xl:col-9 lg:col-9 md:col-12 sm:col-12">
+                <input pInputText [id]="'observations'+i" [formControlName]="i" class="text-uppercase">
+                <small appErrorMessage
+                       [errors]="observationsField.controls[i].errors"
+                       [touched]="observationsField.controls[i].touched"
+                       [dirty]="observationsField.controls[i].dirty">
+                </small>
+              </div>
+              <div class="field xl:col-1 lg:col-1 md:col-12 sm:col-12">
+                <button pButton pRipple type="button" (click)="removeObservations(i)" iconPos="right" icon="pi pi-trash"
+                        class="p-button-danger p-button-rounded"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </p-card>
+</div>

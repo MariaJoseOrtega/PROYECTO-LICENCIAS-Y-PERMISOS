@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
+    <div class="p-toolbar-group-left">
+      <h3 class="ml-2">{{title}}</h3>
+    </div>
+    <div class="p-toolbar-group-right">
+      <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
+      <i *ngIf="form.touched || form.dirty" class="pi pi-check p-button p-button-text" (click)="onSubmit()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormSaveOrUpdate"></i>
+      <i class="pi pi-times p-button p-button-text" (click)="returnList()"
+         style="font-size: 2rem; color: #fff" [pTooltip]="messageService.buttonFormClose"></i>
+    </div>
+  </p-toolbar>
+</div>
+<div class="container">
+  <app-skeleton *ngIf="loadingSkeleton" [type]="'card'"></app-skeleton>
+  <p-card>
+    <div class="p-fluid" *ngIf="!loadingSkeleton">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre de la dependencia-->
+        <div class="formgrid grid">
+          <label for="name" appLabel label="Nombre de la dependencia sea coordinacion, administracion etc:"
+                 [required]="isRequired(nameField)"
+                 [valid]="nameField.valid"
+                 [touched]="nameField.touched"
+                 [dirty]="nameField.dirty"></label>
+          <input pInputText id="name" formControlName="name" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="nameField.errors"
+                 [touched]="nameField.touched"
+                 [dirty]="nameField.dirty">
+          </small>
+        </div>
+        <!-- Nivel que se encuentra -->
+        <div class="formgrid grid">
+          <label for="level" appLabel label="Nivel que se encuentra: 1,2,3,4, etc"
+                 [required]="isRequired(levelField)"
+                 [valid]="levelField.valid"
+                 [touched]="levelField.touched"
+                 [dirty]="levelField.dirty"></label>
+          <input pInputText id="level" formControlName="level" class="text-uppercase">
+          <small appErrorMessage
+                 [errors]="levelField.errors"
+                 [touched]="levelField.touched"
+                 [dirty]="levelField.dirty">
+          </small>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>

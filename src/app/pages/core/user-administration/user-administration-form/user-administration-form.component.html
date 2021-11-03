@@ -1,0 +1,235 @@
+<div class="p-fluid">
+  <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+    <div class="formgrid grid">
+      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+        <label for="identificationType">Tipo de documento:</label>
+        <p-dropdown id="identificationType" [options]="identificationTypes" formControlName="identificationType"
+                    [filter]="true"
+                    filterBy="name" placeholder="Seleccione">
+          <ng-template pTemplate="selectedItem">
+            <div class="country-item country-item-value" *ngIf="identificationTypeField.value">
+              <div>{{identificationTypeField.value?.name}}</div>
+            </div>
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>{{item.name}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <div
+          *ngIf="invalidFieldFormUser('identificationType')">
+          <small *ngIf="identificationTypeField.errors?.required" id="identification-type-help-1" class="p-error">
+            {{messageService.fieldRequired}}
+          </small>
+        </div>
+
+        <span *appErrorMessage="identificationTypeField"></span>
+        <!--        <span *appErrorMessage="identificationTypeField">asd</span>-->
+      </div>
+      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+        <label for="username">Número de documento:</label>
+        <input pInputText id="username" formControlName="username">
+        <div *ngIf="invalidFieldFormUser('username')">
+          <small *ngIf="usernameField.errors?.required" id="username-help-1" class="p-error">
+            {{messageService.fieldRequired}}
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+        <label for="name">Nombres:</label>
+        <input pInputText id="name" formControlName="name">
+        <div *ngIf="invalidFieldFormUser('name')">
+          <small *ngIf="nameField.errors?.required" id="name-help-1" class="p-error">
+            {{messageService.fieldRequired}}
+          </small>
+        </div>
+      </div>
+      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+        <label for="lastname">Apellidos:</label>
+        <input pInputText id="lastname" formControlName="lastname">
+        <div *ngIf="invalidFieldFormUser('lastname')">
+          <small *ngIf="lastnameField.errors?.required" id="lastname-help-1" class="p-error">
+            {{messageService.fieldRequired}}
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Correo electrónico institucional:</label>
+      <input pInputText id="email" formControlName="email">
+      <div *ngIf="invalidFieldFormUser('email')">
+        <small *ngIf="emailField.errors?.required" id="email-help-1" class="p-error">
+          {{messageService.fieldRequired}}
+        </small>
+        <small *ngIf="emailField.errors?.email" id="email-help-2" class="p-error">
+          {{messageService.fieldEmail}}
+        </small>
+      </div>
+    </div>
+
+    <div *ngIf="!idField.value">
+      <p-divider></p-divider>
+      <div class="field">
+        <p-inputSwitch id="automaticPassword" class="mr-2"
+                       (onChange)="generateAutomaticPassword($event)"></p-inputSwitch>
+        <small> Generar una contraseña automáticamente</small>
+      </div>
+
+      <div *ngIf="!automaticPassword.value" class="field">
+        <label for="password">Contraseña:</label>
+        <p-password id="password" formControlName="password" promptLabel="Escriba su contraseña" weakLabel="Débil"
+                    mediumLabel="Nivel medio"
+                    strongLabel="Fuerte" [toggleMask]="true">
+        </p-password>
+        <div *ngIf="invalidFieldFormUser('password')">
+          <small *ngIf="passwordField.errors?.required" id="password-help-1" class="p-error">
+            {{messageService.fieldRequired}}
+          </small>
+          <small *ngIf="passwordField.errors?.minlength" id="password-help-2" class="p-error">
+            {{messageService.fieldMinLength(passwordField)}}
+          </small>
+        </div>
+      </div>
+
+      <div class="field">
+        <p-inputSwitch id="passwordChange" formControlName="passwordChange" class="mr-2"
+                       (onChange)="passwordChangeField.setValue($event.checked)"></p-inputSwitch>
+        <small> Solicitar un cambio de contraseña la próxima vez que se inicie sesión</small>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+    <button pButton pRipple type="button" label="Añadir Teléfono" class="p-button-secondary p-button-rounded"
+            icon="pi pi-plus"
+            (click)="addPhone()"></button>
+    <div *ngIf="invalidFieldFormUser('phones')">
+      <small *ngIf="phonesField?.errors?.required" id="phones-help-1" class="p-error">
+        {{messageService.fieldRequired}}
+      </small>
+    </div>
+    <div formArrayName="phones">
+      <div *ngFor="let phone of phonesField.controls; let i = index;" [formGroupName]="i">
+        <h3>Teléfono {{i + 1}}:</h3>
+        <div class="field">
+          <p-inputSwitch id="main" formControlName="main" class="mr-2"
+                         (onChange)="phonesField.controls[i].get('main')?.patchValue($event.checked)"></p-inputSwitch>
+          <small> ¿Es principal?</small>
+        </div>
+        <div class="formgrid grid">
+          <div class="field xl:col-4 lg:col-4 md:col-12 sm:col-12">
+            <p-dropdown [id]="'phoneOperators'+i" [options]="phoneOperators"
+                        dataKey="id"
+                        formControlName="operator"
+                        [filter]="true" filterBy="name" placeholder="Operadora">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value"
+                     *ngIf="phonesField.value[i].operator">
+                  <div>
+                    {{phonesField.value[i].operator.name}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{item.name}}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            <div *ngIf="invalidFieldFormPhones(i,'operator')">
+              <small *ngIf="phonesField.controls[i].get('operator')?.errors?.required" id="operator-help-1"
+                     class="p-error">
+                {{messageService.fieldRequired}}
+              </small>
+            </div>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <p-dropdown [id]="'phoneTypes'+i" [options]="phoneTypes"
+                        dataKey="id"
+                        formControlName="type"
+                        [filter]="true" filterBy="name" placeholder="Tipo">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value"
+                     *ngIf="phonesField.value[i].type">
+                  <div>
+                    {{phonesField.value[i].type.name}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{item.name}}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            <div *ngIf="invalidFieldFormPhones(i,'type')">
+              <small *ngIf="phonesField.controls[i].get('type')?.errors?.required" id="type-help-1" class="p-error">
+                {{messageService.fieldRequired}}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="formgrid grid">
+          <div class="field xl:col-4 lg:col-4 md:col-12 sm:col-12">
+            <p-dropdown [id]="'phoneLocations'+i" [options]="phoneLocations"
+                        dataKey="id"
+                        formControlName="location"
+                        [filter]="true" filterBy="alpha2_code" placeholder="Cod. Area">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value"
+                     *ngIf="phonesField.value[i].location">
+                  <div>
+                    {{phonesField.value[i].location.alpha2_code}}
+                    {{phonesField.value[i].location.calling_code}}
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="country-item">
+                  <div>
+                    {{item.alpha2_code}}
+                    {{item.calling_code}}
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            <div *ngIf="invalidFieldFormPhones(i,'location')">
+              <small *ngIf="phonesField.controls[i].get('location')?.errors?.required" id="location-help-1"
+                     class="p-error">
+                {{messageService.fieldRequired}}
+              </small>
+            </div>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+            <input pInputText [id]="'number'+i" formControlName="number" pKeyFilter="int" placeholder="Ej. 987654321">
+            <div *ngIf="invalidFieldFormPhones(i,'number')">
+              <small *ngIf="phonesField.controls[i].get('number')?.errors?.required" id="number-help-1" class="p-error">
+                {{messageService.fieldRequired}}
+              </small>
+            </div>
+          </div>
+          <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+            <button pButton pRipple type="button" (click)="removePhone(i)" iconPos="right" icon="pi pi-trash"
+                    class="p-button-danger p-button-rounded"></button>
+          </div>
+        </div>
+        <p-divider *ngIf="i<phonesField.length-1"></p-divider>
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+    <div class="field">
+      <button pButton pRipple label="Guardar" class="p-button-rounded"
+              icon="pi pi-save"></button>
+    </div>
+    <div class="field" *ngIf="progressBar">
+      <p-progressBar mode="indeterminate"></p-progressBar>
+    </div>
+  </form>
+</div>
