@@ -37,13 +37,13 @@ export class DependenceListComponent implements OnInit {
     this.breadcrumbService.setItems([
       {label: 'Home', disabled: true},
       {label: 'Aplicacion', routerLink: ['/license-work/application']},
-      {label: 'Dependence', disabled: true},
+      {label: 'Dependencia', disabled: true},
       {label: 'Employee', routerLink: ['/license-work/employee']},
-      {label: 'Employer', routerLink: ['/license-work/employer']},
-      {label: 'Form', routerLink: ['/license-work/form']},
-      {label: 'Holiday', routerLink: ['/license-work/holiday']},
-      {label: 'Reason', routerLink: ['/license-work/reason']},
-      {label: 'State', routerLink: ['/license-work/state']},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
     ]);
 
     this.filter = new FormControl(null);

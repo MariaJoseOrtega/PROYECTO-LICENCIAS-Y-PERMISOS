@@ -32,8 +32,15 @@ export class ReasonFormComponent implements OnInit{
     ) 
   {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Formulario de razones', disabled: true},
+      {label: 'Home', disabled: true},
+      {label: 'Aplicacion',routerLink: ['/license-work/application']},
+      {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+      {label: 'Employee', routerLink: ['/license-work/employee']},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
     ]);
     this.form = this.newForm();  
   }

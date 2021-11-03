@@ -29,10 +29,17 @@ export class EmployeeFormComponent implements OnInit{
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService,
   ){
-     this.breadcrumbService.setItems([
-        {label: 'Dashboard', routerLink: ['/dashboard']},
-        {label: 'Formulario de empleados', disabled: true},
-      ]);
+    this.breadcrumbService.setItems([
+      {label: 'Home', disabled: true},
+      {label: 'Aplication', routerLink: ['/license-work/application']},
+      {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+      {label: 'Employee', routerLink: ['/license-work/employee']},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
+    ]);
       this.form = this.newForm(); 
      }
 
