@@ -157,8 +157,8 @@ export class ReasonListComponent implements OnInit {
  
   setCols() {
     this.cols = [
-      {field: 'name', header: 'Nombre'},
-      {field: 'descriptionOne', header: 'Descripción Uno '},
+      {field: 'Nombre', header: 'Nombre'},
+      {field: 'Descripción Uno', header: 'Descripción Uno '},
       {field: 'descriptionTwo', header: 'Descripción Dos'},
       {field: 'discountableHolidays', header: '¿Descontable a Vacaciones?'},
       {field: 'daysMin', header: 'Días mínimos'},
