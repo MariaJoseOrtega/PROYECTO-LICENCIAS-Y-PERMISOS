@@ -36,12 +36,12 @@
                         placeholder="Seleccione">
               <ng-template pTemplate="selectedItem">
                 <div class="country-item country-item-value" *ngIf="formField.value">
-                  <div>{{formField.value?.name}}</div>
+                  <div>{{formField.value?.code}}</div>
                 </div>
               </ng-template>
               <ng-template let-item pTemplate="item">
                 <div class="country-item">
-                  <div>{{item.name}} </div>
+                  <div>{{item.code}} </div>
                 </div>
               </ng-template>
             </p-dropdown>
@@ -86,12 +86,12 @@
                       placeholder="Seleccione">
             <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value" *ngIf="employeeField.value">
-                <div>{{employeeField.value?.name}}</div>
+                <div>{{employeeField.value?.id}}</div>
               </div>
             </ng-template>
             <ng-template let-item pTemplate="item">
               <div class="country-item">
-                <div>{{item.name}} </div>
+                <div>{{item.id}} </div>
               </div>
             </ng-template>
           </p-dropdown>

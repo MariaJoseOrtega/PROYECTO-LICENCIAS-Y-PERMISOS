@@ -5,7 +5,7 @@ import {LocationModel} from '@models/core';
 import {EmployeeModel, FormModel, ReasonModel} from '@models/license-work';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BreadcrumbService} from "@services/core/breadcrumb.service";
-import {MessageService} from "@services/core";
+import {CoreHttpService, MessageService} from "@services/core";
 import {LicenseWorkHttpService} from "@services/license-work";
 import {ApplicationModel} from "@models/license-work";
 
@@ -31,9 +31,8 @@ export class ApplicationFormComponent implements OnInit {
 
   yearRange: string = `1900:${(new Date()).getFullYear()}`;
 
-  private coreHttpService: any;
-
   constructor(
+    private coreHttpService: CoreHttpService,
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -143,7 +142,7 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   loadLocations() {
-    /*this.subscriptions.push(
+    this.subscriptions.push(
       this.coreHttpService.getLocations('PROVINCE')
         .subscribe(
           response => {
@@ -151,7 +150,7 @@ export class ApplicationFormComponent implements OnInit {
           }, error => {
             this.messageService.error(error);
           }
-        ));*/
+        ));
   }
 
   addObservations(data: string = '') {
