@@ -5,6 +5,8 @@ import {ApplicationComponent} from "./application/application.component";
 import {ApplicationFormComponent} from "./application/application-form/application-form.component";
 import {EmployerComponent} from './employer/employer.component';
 import {EmployerFormComponent} from './employer/employer-form/employer-form.component';
+import {EmployeeComponent} from './employee/employee.component';
+import {EmployeeFormComponent} from './employee/employee-form/employee-form.component';
 import {HolidayComponent} from './holiday/holiday.component';
 import {HolidayFormComponent} from './holiday/holiday-form/holiday-form.component';
 import {FormComponent} from './form/form.component';
@@ -25,6 +27,15 @@ const routes: Routes = [
   {
     path: 'application/:id',
     component: ApplicationFormComponent,
+    canDeactivate: [ExitGuard]
+  },
+  {
+    path: 'employee',
+    component: EmployeeComponent,
+  },
+  {
+    path: 'employee/:id',
+    component: EmployerFormComponent,
     canDeactivate: [ExitGuard]
   },
   {

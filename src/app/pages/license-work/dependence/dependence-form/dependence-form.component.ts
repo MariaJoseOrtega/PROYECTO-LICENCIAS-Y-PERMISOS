@@ -31,8 +31,14 @@ export class DependenceFormComponent implements OnInit {
     private licenseWorkHttpService: LicenseWorkHttpService,
   ) {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Dependencia', disabled: true},
+      {label: 'Home', disabled: true},
+      {label: 'Aplicacion', routerLink: ['/license-work/application']},
+      {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
     ]);
     this.form = this.newForm();
   }

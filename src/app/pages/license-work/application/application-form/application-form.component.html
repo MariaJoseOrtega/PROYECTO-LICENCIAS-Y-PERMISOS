@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <p-toolbar *ngIf="!loadingSkeleton" styleClass="bg-primary">
     <div class="p-toolbar-group-left">
-      <h3 class="ml-2">{{title}}</h3>
+      <h3 class="ml-2">Crear Solicitud</h3>
     </div>
     <div class="p-toolbar-group-right">
       <app-progress-bar *ngIf="progressBar" [message]="messageService.progressBarSaveOrUpdate"></app-progress-bar>
@@ -71,22 +71,26 @@
         </div>
           <!-- Nombre del empleado column 2 -->
         <div class="field">
-          <label for="employee" appLabel label="Nombre del Empleado:"
+          <label for="employees" appLabel label="Nombre del Empleado:"
                  [required]="isRequired(employeeField)"
                  [valid]="employeeField.valid"
                  [touched]="employeeField.touched"
                  [dirty]="employeeField.dirty">
           </label>
-          <p-dropdown id="employee"
+          <p-dropdown id="employeeField"
                       dataKey="id"
-                      [options]="employees"
-                      formControlName="employee"
+                      [options]="employeeField"
+                      formControlName="employeeField"
                       [filter]="true"
                       filterBy="name"
                       placeholder="Seleccione">
             <ng-template pTemplate="selectedItem">
               <div class="country-item country-item-value" *ngIf="employeeField.value">
+<<<<<<< HEAD
                 <div>{{employeeField.value?.id}}</div>
+=======
+                <div>{{employerField.value?.name}}</div>
+>>>>>>> bb59ac2fe7428fd82ea5b16d373d032dba0442bb
               </div>
             </ng-template>
             <ng-template let-item pTemplate="item">

@@ -1,4 +1,4 @@
 
 export interface EmployeeModel {
-    id?: number;
+    id?: number
   }

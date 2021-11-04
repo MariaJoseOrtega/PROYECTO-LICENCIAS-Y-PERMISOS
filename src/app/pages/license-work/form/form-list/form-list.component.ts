@@ -33,10 +33,15 @@ export class FormListComponent implements OnInit {
                 )
     {
       this.breadcrumbService.setItems([
-        {label: 'Dashboard', routerLink: ['/dashboard']},
+        {label: 'Home', disabled: true},
+        {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+        {label: 'Empleador', routerLink: ['/license-work/employer']},
+        {label: 'Aplicacion', routerLink: ['/license-work/application']},
         {label: 'Formulario', disabled: true},
+        {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+        {label: 'Razones', routerLink: ['/license-work/reason']},
+        {label: 'Estado', routerLink: ['/license-work/state']},
       ]);
-  
       this.filter = new FormControl(null);
     }
   

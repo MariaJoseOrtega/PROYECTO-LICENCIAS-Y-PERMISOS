@@ -33,8 +33,14 @@ export class HolidayListComponent implements OnInit {
                 ) 
     {
       this.breadcrumbService.setItems([
-        {label: 'Dashboard', routerLink: ['/dashboard']},
+        {label: 'Home', disabled: true},
+        {label: 'Aplicacion', routerLink: ['/license-work/application']},
+        {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+        {label: 'Empleador', routerLink: ['/license-work/employer']},
+        {label: 'Formulario', routerLink: ['/license-work/form']},
         {label: 'Vacaciones', disabled: true},
+        {label: 'Razones', routerLink: ['/license-work/reason']},
+        {label: 'Estado', routerLink: ['/license-work/state']},
       ]);
   
       this.filter = new FormControl(null);
@@ -147,7 +153,7 @@ export class HolidayListComponent implements OnInit {
   
     setCols() {
       this.cols = [
-        {field: 'employee', header: 'Nombre del trabajador Losep.Cod.'},
+        {field: 'employer', header: 'Nombre del trabajador Losep.Cod.'},
         {field: 'numberDays', header: 'Número de dás de licencias y permisos '},
         {field: 'year', header: 'Año de vacaciones'},
         

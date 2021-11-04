@@ -37,12 +37,10 @@
         <li>
 
         </li>
-        <li *appToken="'authenticated'" class="nav-item ml-8">
-          <a class="nav-link" href="javascript:void(0)" (click)="logout()">
-            <i class="bi bi-power" style="font-size: 2rem; color: cornflowerblue;"></i>
-            Cerrar Sesión
-          </a>
-        </li>
+        <div class="field">
+        <button pButton pRipple label="Cerrar Sesion" class="p-button-rounded" icon="pi pi-sign-in" onclick="'authentication/login';"></button>
+      </div>
+
         <!--        <li class="nav-item dropdown">-->
         <!--          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Opciones</a>-->
         <!--          <ul class="dropdown-menu">-->

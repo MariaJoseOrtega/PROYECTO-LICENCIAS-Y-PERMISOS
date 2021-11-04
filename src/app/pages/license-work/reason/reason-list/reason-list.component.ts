@@ -36,9 +36,15 @@ export class ReasonListComponent implements OnInit {
     ) 
     { 
       this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
-      {label: 'Razones', disabled: true},
-    ]);
+        {label: 'Home', disabled: true},
+        {label: 'Aplicacion',routerLink: ['/license-work/application']},
+        {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+        {label: 'Empleador', routerLink: ['/license-work/employer']},
+        {label: 'Formulario', routerLink: ['/license-work/form']},
+        {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+        {label: 'Razones', disabled: true},
+        {label: 'Estado', routerLink: ['/license-work/state']},
+      ]);
 
     this.filter = new FormControl(null);
   }

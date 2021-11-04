@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {MenuItem} from 'primeng/api';
+import {ColModel, PaginatorModel} from '@models/core';
+import {ApplicationModel, EmployeeModel } from '@models/license-work';
+import {MessageService} from '@services/core';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {LicenseWorkHttpService} from '@services/license-work';
-import {MessageService} from '@services/core';
-import {EmployeeModel} from '@models/license-work';
-import {ColModel, PaginatorModel} from '@models/core';
-import {FormControl} from '@angular/forms';
-
+import {MenuItem} from 'primeng/api';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
@@ -170,15 +169,4 @@ export class EmployeeListComponent implements OnInit {
       }
     ];
   }
-
-
-
-
-
-
-
-
-
-
-
 }

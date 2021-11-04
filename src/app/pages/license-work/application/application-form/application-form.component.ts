@@ -251,4 +251,3 @@ export class ApplicationFormComponent implements OnInit {
     return this.form.controls['observations']as FormArray;
   }
 }
-

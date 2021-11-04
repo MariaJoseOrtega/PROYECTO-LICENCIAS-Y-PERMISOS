@@ -35,8 +35,14 @@ export class ApplicationListComponent implements OnInit {
     private licenseWorkHttpService: LicenseWorkHttpService
   ) {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
+      {label: 'Home', disabled: true},
       {label: 'Solicitud', disabled: true},
+      {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
     ]);
 
     this.filter = new FormControl(null);
@@ -147,7 +153,6 @@ export class ApplicationListComponent implements OnInit {
 
   setCols() {
     this.cols = [
-      {field: 'employee', header: 'Empleado'},
       {field: 'reason', header: 'Razones'},
       {field: 'location', header: 'Localización'},
       {field: 'type', header: 'tipo'},

@@ -35,8 +35,14 @@ export class DependenceListComponent implements OnInit {
   ) 
   {
     this.breadcrumbService.setItems([
-      {label: 'Dashboard', routerLink: ['/dashboard']},
+      {label: 'Home', disabled: true},
+      {label: 'Aplicacion', routerLink: ['/license-work/application']},
       {label: 'Dependencia', disabled: true},
+      {label: 'Empleador', routerLink: ['/license-work/employer']},
+      {label: 'Formulario', routerLink: ['/license-work/form']},
+      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
+      {label: 'Razones', routerLink: ['/license-work/reason']},
+      {label: 'Estado', routerLink: ['/license-work/state']},
     ]);
 
     this.filter = new FormControl(null);
@@ -91,8 +97,7 @@ export class DependenceListComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.progressBarDelete = true;
-          this.subscriptions.push(this.licenseWorkHttpService.deleteDependence(dependence.id!)
-            .subscribe(
+          this.subscriptions.push(this.licenseWorkHttpService.deleteDependence(dependence.id!).subscribe(
             response => {
               this.removeDependence(dependence);
               this.messageService.success(response);
