@@ -38,7 +38,6 @@ export class ApplicationListComponent implements OnInit {
       {label: 'Home', disabled: true},
       {label: 'Solicitud', disabled: true},
       {label: 'Dependencia', routerLink: ['/license-work/dependence']},
-      {label: 'Employee', routerLink: ['/license-work/employee']},
       {label: 'Empleador', routerLink: ['/license-work/employer']},
       {label: 'Formulario', routerLink: ['/license-work/form']},
       {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
@@ -154,7 +153,6 @@ export class ApplicationListComponent implements OnInit {
 
   setCols() {
     this.cols = [
-      {field: 'employee', header: 'Empleado'},
       {field: 'reason', header: 'Razones'},
       {field: 'location', header: 'Localización'},
       {field: 'type', header: 'tipo'},

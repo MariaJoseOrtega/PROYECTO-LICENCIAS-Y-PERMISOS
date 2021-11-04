@@ -39,7 +39,6 @@ export class StateListComponent implements OnInit {
       {label: 'Home', disabled: true},
       {label: 'Aplicacion',routerLink: ['/license-work/application']},
       {label: 'Dependencia', routerLink: ['/license-work/dependence']},
-      {label: 'Employee', routerLink: ['/license-work/employee']},
       {label: 'Empleador', routerLink: ['/license-work/employer']},
       {label: 'Formulario', routerLink: ['/license-work/form']},
       {label: 'Vacaciones', routerLink: ['/license-work/holiday']},

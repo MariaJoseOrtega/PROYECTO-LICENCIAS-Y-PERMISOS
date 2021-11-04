@@ -71,22 +71,22 @@
         </div>
           <!-- Nombre del empleado column 2 -->
         <div class="field">
-          <label for="employee" appLabel label="Nombre del Empleado:"
-                 [required]="isRequired(employeeField)"
-                 [valid]="employeeField.valid"
-                 [touched]="employeeField.touched"
-                 [dirty]="employeeField.dirty">
+          <label for="employer" appLabel label="Nombre del Empleado:"
+                 [required]="isRequired(employerField)"
+                 [valid]="employerField.valid"
+                 [touched]="employerField.touched"
+                 [dirty]="employerField.dirty">
           </label>
-          <p-dropdown id="employee"
+          <p-dropdown id="employerField"
                       dataKey="id"
-                      [options]="employees"
-                      formControlName="employee"
+                      [options]="employerField"
+                      formControlName="employerField"
                       [filter]="true"
                       filterBy="name"
                       placeholder="Seleccione">
             <ng-template pTemplate="selectedItem">
-              <div class="country-item country-item-value" *ngIf="employeeField.value">
-                <div>{{employeeField.value?.name}}</div>
+              <div class="country-item country-item-value" *ngIf="employerField.value">
+                <div>{{employerField.value?.name}}</div>
               </div>
             </ng-template>
             <ng-template let-item pTemplate="item">
@@ -96,9 +96,9 @@
             </ng-template>
           </p-dropdown>
           <small appErrorMessage
-                 [errors]="employeeField.errors"
-                 [touched]="employeeField.touched"
-                 [dirty]="employeeField.dirty">
+                 [errors]="employerField.errors"
+                 [touched]="employerField.touched"
+                 [dirty]="employerField.dirty">
           </small>
         </div>
           <!-- Razon de la solicitud column 3 -->

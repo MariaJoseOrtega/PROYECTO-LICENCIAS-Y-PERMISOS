@@ -39,7 +39,6 @@ export class ReasonListComponent implements OnInit {
         {label: 'Home', disabled: true},
         {label: 'Aplicacion',routerLink: ['/license-work/application']},
         {label: 'Dependencia', routerLink: ['/license-work/dependence']},
-        {label: 'Employee', routerLink: ['/license-work/employee']},
         {label: 'Empleador', routerLink: ['/license-work/employer']},
         {label: 'Formulario', routerLink: ['/license-work/form']},
         {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
@@ -157,8 +156,8 @@ export class ReasonListComponent implements OnInit {
  
   setCols() {
     this.cols = [
-      {field: 'Nombre', header: 'Nombre'},
-      {field: 'Descripción Uno', header: 'Descripción Uno '},
+      {field: 'name', header: 'Nombre'},
+      {field: 'descriptionOne', header: 'Descripción Uno '},
       {field: 'descriptionTwo', header: 'Descripción Dos'},
       {field: 'discountableHolidays', header: '¿Descontable a Vacaciones?'},
       {field: 'daysMin', header: 'Días mínimos'},

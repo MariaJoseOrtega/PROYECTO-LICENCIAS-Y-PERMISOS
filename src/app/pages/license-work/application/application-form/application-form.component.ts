@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LocationModel} from '@models/core';
-import {EmployeeModel, FormModel, ReasonModel} from '@models/license-work';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BreadcrumbService} from "@services/core/breadcrumb.service";
 import {MessageService} from "@services/core";
@@ -24,7 +23,6 @@ export class ApplicationFormComponent implements OnInit {
   title: string = 'Crear Solicitud';
   buttonTitle: string = 'Crear Solicitud';
 
-  employees: EmployeeModel[] = [];
   forms: FormModel[] = [];
   reasons: ReasonModel[] = [];
   locations: LocationModel[] = [];
@@ -45,7 +43,6 @@ export class ApplicationFormComponent implements OnInit {
       {label: 'Home', disabled: true},
       {label: 'Aplication', routerLink: ['/license-work/application']},
       {label: 'Dependence', routerLink: ['/license-work/dependence']},
-      {label: 'Employee', routerLink: ['/license-work/employee']},
       {label: 'Employer', routerLink: ['/license-work/employer']},
       {label: 'Form', routerLink: ['/license-work/form']},
       {label: 'Holiday', routerLink: ['/license-work/holiday']},
@@ -61,7 +58,6 @@ export class ApplicationFormComponent implements OnInit {
       this.buttonTitle = 'Actualizar Solicitud';
       this.loadApplication();
     }
-    this.loadEmployees();
     this.loadForms();
     this.loadReasons();
     this.loadLocations();
@@ -84,7 +80,6 @@ export class ApplicationFormComponent implements OnInit {
   newForm(): FormGroup {
     return this.formBuilder.group({
       id: [null],
-      employee: [null, [Validators.required]],
       form: [null, [Validators.required]],
       reason: [null, [Validators.required]],
       location: [null, [Validators.required]],
@@ -113,17 +108,6 @@ export class ApplicationFormComponent implements OnInit {
         ));
   }
 
-  loadEmployees() {
-    this.subscriptions.push(
-      this.licenseWorkHttpService.getCatalogueEmployees()
-        .subscribe(
-          response => {
-            this.employees = response.data;
-          }, error => {
-            this.messageService.error(error);
-          }
-        ));
-  }
 
   loadForms() {
     this.subscriptions.push(
@@ -227,9 +211,6 @@ export class ApplicationFormComponent implements OnInit {
 
   get idField() {
     return this.form.controls['id'];
-  }
-  get employeeField() {
-    return this.form.controls['employee'];
   }
   get formField() {
     return this.form.controls['form'];

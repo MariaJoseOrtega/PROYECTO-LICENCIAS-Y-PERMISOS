@@ -24,9 +24,6 @@ import { ApplicationListComponent } from './application/application-list/applica
 import { ReasonComponent } from './reason/reason.component';
 import { ReasonFormComponent } from './reason/reason-form/reason-form.component';
 import { ReasonListComponent } from './reason/reason-list/reason-list.component';
-import { EmployeeComponent } from './employee/employee.component';
-import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
-import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
 import {EmployerComponent} from "./employer/employer.component";
 import {EmployerFormComponent} from "./employer/employer-form/employer-form.component";
 import {EmployerListComponent} from "./employer/employer-list/employer-list.component";
@@ -52,9 +49,6 @@ import { DependenceListComponent } from './dependence/dependence-list/dependence
     ReasonComponent,
     ReasonFormComponent,
     ReasonListComponent,
-    EmployeeComponent,
-    EmployeeFormComponent,
-    EmployeeListComponent,
     EmployerComponent,
     EmployerFormComponent,
     EmployerListComponent,
