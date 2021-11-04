@@ -7,6 +7,7 @@ import {
   ApplicationModel,
   StateModel,
   ReasonModel,
+  EmployeeModel,
   EmployerModel,
   FormModel,
   HolidayModel,
@@ -152,6 +153,74 @@ export class LicenseWorkHttpService {
       );
   }
 
+  //*************        EMPLOYEE         *******************//
+  getEmployees(paginator: PaginatorModel, filter: string = ''): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employees`;
+    const params = new HttpParams()
+      .set('page', paginator.current_page)
+      .set('per_page', paginator.per_page);
+    if (filter !== '') {
+      filter = `?name=${filter}&description=${filter}`;
+    }
+    return this.httpClient.get<ServerResponse>(url + filter, {params})
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+  getCatalogueEmployees(){
+    const url = `${this.API_URL}/employee/catalogue`;
+    return this.httpClient.get<ServerResponse>(url)
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+
+  getEmployee(id: number): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employees/${id}`;
+    return this.httpClient.get<ServerResponse>(url)
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+
+  storeEmployee(employee: EmployeeModel): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employees`;
+    return this.httpClient.post<ServerResponse>(url, employee)
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+
+  updateEmployee(id: number, employee: EmployeeModel): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employees/${id}`;
+    return this.httpClient.put<ServerResponse>(url, employee)
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+
+  deleteEmployee(id: number): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employees/${id}`;
+    return this.httpClient.delete<ServerResponse>(url)
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
+
+  deleteEmployees(ids: (number | undefined)[]): Observable<ServerResponse> {
+    const url = `${this.API_URL}/employee/destroys`;
+    return this.httpClient.patch<ServerResponse>(url, {ids})
+      .pipe(
+        map(response => response),
+        catchError(Handler.render)
+      );
+  }
   //*************        EMPLOYER         *******************//
 
   getEmployers(paginator: PaginatorModel, filter: string = ''): Observable<ServerResponse> {

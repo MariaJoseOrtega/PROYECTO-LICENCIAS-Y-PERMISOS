@@ -6,7 +6,7 @@ import {OnExitInterface} from '@shared/interfaces/on-exit.interface';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {MessageService} from '@services/core';
 import {LicenseWorkHttpService} from '@services/license-work';
-import {HolidayModel, EmployerModel} from '@models/license-work';
+import {HolidayModel, EmployeeModel} from '@models/license-work';
 
 @Component({
   selector: 'app-holiday-form',
@@ -21,7 +21,7 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
   loadingSkeleton: boolean = false;
   title: string = 'Crear Vacaciones';
   buttonTitle: string = 'Crear Vacaciones';
-  employees: EmployerModel[] = [];
+  employees: EmployeeModel[] = [];
   yearRange: string = `1900:${(new Date()).getFullYear()}`;
 
   constructor(
@@ -36,6 +36,7 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
       {label: 'Home', disabled: true},
       {label: 'Aplicacion', routerLink: ['/license-work/application']},
       {label: 'Dependencia', routerLink: ['/license-work/dependence']},
+      {label: 'Employee', routerLink: ['/license-work/employee']},
       {label: 'Empleador', routerLink: ['/license-work/employer']},
       {label: 'Formulario', routerLink: ['/license-work/form']},
       {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
@@ -51,7 +52,7 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
       this.buttonTitle = 'Actualizar Vacaciones';
       this.loadHoliday();
     }
-    this.loadEmployers();
+    this.loadEmployees();
   }
 
   ngOnDestroy(): void {
@@ -94,9 +95,9 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
         ));
   }
 
-  loadEmployers() {
+  loadEmployees() {
     this.subscriptions.push(
-      this.licenseWorkHttpService.getCatalogueEmployers()
+      this.licenseWorkHttpService.getCatalogueEmployees()
         .subscribe(
           response => {
             this.employees = response.data;
@@ -168,8 +169,8 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
     return this.form.controls['id'];
   }
 
-  get employerField() {
-    return this.form.controls['employer'];
+  get employeeField() {
+    return this.form.controls['employee'];
   }
 
   get numberDaysField() {
@@ -180,5 +181,3 @@ export class HolidayFormComponent implements OnInit, OnDestroy, OnExitInterface 
     return this.form.controls['year'];
   }
 }
-
-
