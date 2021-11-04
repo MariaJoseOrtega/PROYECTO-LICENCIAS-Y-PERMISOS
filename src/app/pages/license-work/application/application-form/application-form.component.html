@@ -71,21 +71,21 @@
         </div>
           <!-- Nombre del empleado column 2 -->
         <div class="field">
-          <label for="employer" appLabel label="Nombre del Empleado:"
-                 [required]="isRequired(employerField)"
-                 [valid]="employerField.valid"
-                 [touched]="employerField.touched"
-                 [dirty]="employerField.dirty">
+          <label for="employees" appLabel label="Nombre del Empleado:"
+                 [required]="isRequired(employeeField)"
+                 [valid]="employeeField.valid"
+                 [touched]="employeeField.touched"
+                 [dirty]="employeeField.dirty">
           </label>
-          <p-dropdown id="employerField"
+          <p-dropdown id="employeeField"
                       dataKey="id"
-                      [options]="employerField"
-                      formControlName="employerField"
+                      [options]="employeeField"
+                      formControlName="employeeField"
                       [filter]="true"
                       filterBy="name"
                       placeholder="Seleccione">
             <ng-template pTemplate="selectedItem">
-              <div class="country-item country-item-value" *ngIf="employerField.value">
+              <div class="country-item country-item-value" *ngIf="employeeField.value">
                 <div>{{employerField.value?.name}}</div>
               </div>
             </ng-template>
@@ -96,9 +96,9 @@
             </ng-template>
           </p-dropdown>
           <small appErrorMessage
-                 [errors]="employerField.errors"
-                 [touched]="employerField.touched"
-                 [dirty]="employerField.dirty">
+                 [errors]="employeeField.errors"
+                 [touched]="employeeField.touched"
+                 [dirty]="employeeField.dirty">
           </small>
         </div>
           <!-- Razon de la solicitud column 3 -->

@@ -1,46 +1,43 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,OnDestroy, } from '@angular/core';
+import {OnExitInterface} from '@shared/interfaces/on-exit.interface';
 import {Subscription} from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {EmployeeModel} from '@models/license-work';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BreadcrumbService} from '@services/core/breadcrumb.service';
 import {MessageService} from '@services/core';
 import {LicenseWorkHttpService} from '@services/license-work';
+import {EmployeeModel} from '@models/license-work';
 
 @Component({
   selector: 'app-employee-form',
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss']
 })
-export class EmployeeFormComponent implements OnInit{
-
+export class EmployeeFormComponent implements OnInit,OnDestroy,OnExitInterface {
   private subscriptions: Subscription[] = [];
   form: FormGroup;
   progressBar: boolean = false;
   loadingSkeleton: boolean = false;
   title: string = 'Crear Empleado';
   buttonTitle: string = 'Crear Empleado';
+  user: number[] = [];
 
-  constructor( 
-    private formBuilder: FormBuilder,
+
+  constructor( private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     public messageService: MessageService,
     private licenseWorkHttpService: LicenseWorkHttpService,
-  ){
-    this.breadcrumbService.setItems([
-      {label: 'Home', disabled: true},
-      {label: 'Aplication', routerLink: ['/license-work/application']},
-      {label: 'Dependencia', routerLink: ['/license-work/dependence']},
-      {label: 'Employee', routerLink: ['/license-work/employee']},
-      {label: 'Empleador', routerLink: ['/license-work/employer']},
-      {label: 'Formulario', routerLink: ['/license-work/form']},
-      {label: 'Vacaciones', routerLink: ['/license-work/holiday']},
-      {label: 'Razones', routerLink: ['/license-work/reason']},
-      {label: 'Estado', routerLink: ['/license-work/state']},
-    ]);
-      this.form = this.newForm(); 
+  )
+    
+    {
+     this.breadcrumbService.setItems([
+        {label: 'Dashboard', routerLink: ['/dashboard']},
+        {label: 'Formulario de empleados', disabled: true},
+      ]);
+      this.form = this.newForm();
+      
      }
 
      ngOnInit(): void {
@@ -67,7 +64,8 @@ export class EmployeeFormComponent implements OnInit{
 
     newForm(): FormGroup {
       return this.formBuilder.group({
-       id: [null],    
+       id: [null],
+       user: [null, [Validators.required]],
       });
  }
 
@@ -140,7 +138,7 @@ isRequired(field: AbstractControl): boolean {
 }
 
 returnList() {
-  this.router.navigate(['/license-work/employee']);
+  this.router.navigate(['/license-work', 2]);
 }
 
 
